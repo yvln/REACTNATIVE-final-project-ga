@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import { StyleSheet, Text, View } from 'react-native';
+import { NativeRouter, Link, Route } from 'react-router-native'
+import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 
 import axios from 'axios';
 
@@ -19,7 +19,6 @@ class UserProfile extends Component {
       lnameForm: false
     }
 
-    this.onChange = this.onChange.bind(this);
     this.changeOnDb = this.changeOnDb.bind(this);
     this.getInfoUser = this.getInfoUser.bind(this);
   }
@@ -38,20 +37,21 @@ class UserProfile extends Component {
     })
   }
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
-
   changeOnDb(e) {
     e.preventDefault();
-    axios.post(`${this.props.url}/userchanges`, {
-      user_id: this.props.user.id,
-      picture: this.state.picture,
-      username: this.state.username,
-      fname: this.state.fname,
-      lname: this.state.lname
+    fetch(`${this.props.url}/userchanges`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: this.props.user.id,
+        picture: this.state.picture,
+        username: this.state.username,
+        fname: this.state.fname,
+        lname: this.state.lname
+      })
     }).then( res => {
       this.getInfoUser();
       this.setState({
@@ -59,10 +59,10 @@ class UserProfile extends Component {
         usernameForm: false,
         fnameForm: false,
         lnameForm: false,
-        picture: res.data.picture,
-        username: res.data.username,
-        fname: res.data.fname,
-        lname: res.data.lname
+        picture: JSON.parse(res._bodyInit).picture,
+        username: JSON.parse(res._bodyInit).username,
+        fname: JSON.parse(res._bodyInit).fname,
+        lname: JSON.parse(res._bodyInit).lname
       })
     })
   }
@@ -79,68 +79,76 @@ class UserProfile extends Component {
     }
   }
 
+  // <View class='profilePicView' onPress={() => {this.makeAppear('pictureForm')}}>
+  //   <Image class='displayBigProfilPic' source={{uri: `${this.state.picture}`}} alt="Add Profile Picture"/>
+  // </View>
+
   render() {
     return (
-      <div className="UserProfile">
+      <View class="UserProfile">
 
-        <div className="UserProfileContainer">
+        <View class="UserProfileContainer">
 
-          <div className='labelUserProfileStatic LevelUserProfile'>Level {this.props.user.level}</div>
-          <div className='labelUserProfileStatic RegisUserProfile'>Registration date {this.props.user.date_registr.substring(0,10)}</div>
-          <div className='profilePicDiv' onClick={() => {this.makeAppear('pictureForm')}}><img className='displayBigProfilPic' src={this.state.picture} alt="Add Profile Picture"/></div>
-            <div className={this.state.pictureForm ? 'yes' : 'no'}>
-              <form onSubmit={this.changeOnDb} >
-                <input type="text" name="picture" value={this.state.picture} onChange={this.onChange} placeholder="image url" />
-                <input className="ok" type="submit" value="OK" />
-              </form>
-            </div>
+          <Text class='labelUserProfileStatic LevelUserProfile'>Level {this.props.user.level}</Text>
+          <Text class='labelUserProfileStatic RegisUserProfile'>Registration date {this.props.user.date_registr.substring(0,10)}</Text>
 
-          <div className='labelUserProfile' onClick={() => {this.makeAppear('usernameForm')}}>Username</div>
+
+
+            <View class={this.state.pictureForm ? 'yes' : 'no'}>
+                <TextInput name="picture" value={this.state.picture} onChangeText={(picture) => this.setState({picture})} placeholder="image url" />
+                <Text class="ok" onPress={this.changeOnDb}>OK</Text>
+            </View>
+
+          <Text class='labelUserProfile' onPress={() => {this.makeAppear('usernameForm')}}>Username</Text>
               {!this.state.usernameForm &&
-                <div className="inputUserProfile">
-                  {this.state.username}
-                </div>
+                <View class="TextDisplayUserProfile">
+                  <Text>{this.state.username}</Text>
+                </View>
               }
               {this.state.usernameForm &&
-                <form onSubmit={this.changeOnDb} >
-                  <input type="text" name="username" value={this.state.username} onChange={this.onChange} />
-                  <input className="ok" type="submit" value="OK" />
-                </form>
+                <View class="TextInputUserProfile">
+                  <TextInput name="username" value={this.state.username} onChangeText={(username) => this.setState({username})} />
+                  <Text class="ok" onPress={this.changeOnDb}>OK</Text>
+                </View>
               }
 
-          <div className='labelUserProfile' onClick={() => {this.makeAppear('fnameForm')}}>First name</div>
+          <Text class='labelUserProfile' onPress={() => {this.makeAppear('fnameForm')}}>First name</Text>
               {!this.state.fnameForm &&
-                <div className="inputUserProfile">
-                  {this.state.fname}
-                </div>
+                <View class="TextDisplayUserProfile">
+                  <Text>{this.state.fname}</Text>
+                </View>
               }
               {this.state.fnameForm &&
-                <form onSubmit={this.changeOnDb} >
-                  <input type="text" name="fname" value={this.state.fname} onChange={this.onChange} />
-                  <input className="ok" type="submit" value="OK" />
-                </form>
+                <View class="TextInputUserProfile">
+                  <TextInput name="fname" value={this.state.fname} onChangeText={(fname) => this.setState({fname})} />
+                  <Text class="ok" onPress={this.changeOnDb}>OK</Text>
+                </View>
               }
 
-          <div className='labelUserProfile' onClick={() => {this.makeAppear('lnameForm')}}>Last name</div>
+          <Text class='labelUserProfile' onPress={() => {this.makeAppear('lnameForm')}}>Last name</Text>
               {!this.state.lnameForm &&
-                <div className="inputUserProfile">
-                  {this.state.lname}
-                </div>
+                <View class="TextDisplayUserProfile">
+                  <Text>{this.state.lname}</Text>
+                </View>
               }
               {this.state.lnameForm &&
-                <form onSubmit={this.changeOnDb} >
-                  <input type="text" name="lname" value={this.state.lname} onChange={this.onChange} />
-                  <input className="ok" type="submit" value="OK" />
-                </form>
+                <View class="TextInputUserProfile">
+                  <TextInput name="lname" value={this.state.lname} onChangeText={(lname) => this.setState({lname})} />
+                  <Text class="ok" onPress={this.changeOnDb}>OK</Text>
+                </View>
               }
 
-          <Link to='/home'>Home</Link>
 
-        </div>
 
-      </div>
+
+        </View>
+
+      </View>
     );
   }
 }
+
+// <Link to='/home'>Home</Link>
+
 
 export default UserProfile;

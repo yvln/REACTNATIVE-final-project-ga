@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NativeRouter, Route, Link, Redirect } from 'react-router-native'
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { Container, Content, Form, Item, Label, Button } from 'native-base';
+import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 // import FBSDK, { LoginButton, LoginManager } from 'react-native-fbsdk';
 // const FBSDK = require('react-native-fbsdk');
 // const {
@@ -100,28 +99,95 @@ class Login extends Component {
 
   render() {
     return (
-      <View>
-        <Text>In Login.js</Text>
-        {this.state.loginSuccess &&
-            <Redirect to='/home' />
-        }
-        {!this.state.loginSuccess &&
-          <View class="login auth">
-              <View class="loginContainer authContainer">
-                <View class="nameApp"></View>
-                <Text class="loginTitle authTitle">LOG IN</Text>
-                <TextInput class="authInput" name="email" value={this.state.email} placeholder='E-mail' onChangeText={(email) => this.setState({email, loginError: false})}/>
-                <TextInput class="authInput" secureTextEntry='true' name="password" value={this.state.password} placeholder='Password' onChangeText={(password) => this.setState({password, loginError: false})}/>
-                {this.state.loginError &&
-                  <Text class="errorAuth">{this.state.loginError}</Text>
-                }
-                <Text class="goButton" onPress={this.login}>Go</Text>
+      <View style={styles.container}>
+      <Image style={styles.backgroundImage} source={require('../images/RV-lisbon.jpeg')}>
+
+          {this.state.loginSuccess &&
+              <Redirect to='/home' />
+          }
+          {!this.state.loginSuccess &&
+            <View style={styles.loginContainer}>
+              <View style={styles.login}>
+                  <View style={styles.loginChild}><Image style={styles.nameApp} source={require('../images/logo.png')} /></View>
+                  <View style={styles.loginChild}><Text style={styles.loginTitle}>LOG IN</Text></View>
+                  <View style={styles.loginChild}><TextInput style={styles.authInput} value={this.state.email} placeholder='E-mail' onChangeText={(email) => this.setState({email, loginError: false})}/></View>
+                  <View style={styles.loginChild}><TextInput style={styles.authInput} secureTextEntry='true' value={this.state.password} placeholder='Password' onChangeText={(password) => this.setState({password, loginError: false})}/></View>
+                  {this.state.loginError &&
+                    <View style={styles.loginChild}><Text style={styles.errorAuth}>{this.state.loginError}</Text></View>
+                  }
+                  <View style={styles.goButtonContainer}><Text style={styles.goButton} onPress={this.login}>Go</Text></View>
+                  <Link to='/signup'><Text style={styles.link}>SIGN UP</Text></Link>
               </View>
-          </View>
-        }
+            </View>
+          }
+
+      </Image>
       </View>
     )
   }
 }
 
 export default Login;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  backgroundImage: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'cover'
+  },
+  loginContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 450,
+    height: 500
+  },
+  login: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 300,
+    height: 500
+  },
+  nameApp: {
+    width: 150,
+    height: 150,
+    paddingBottom: 50
+  },
+  loginTitle: {
+    textAlign: 'center',
+    padding: 10,
+    margin: 10,
+    fontSize: 25,
+    backgroundColor: 'transparent',
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  authInput: {
+    padding: 5,
+    margin: 5
+  },
+  errorAuth: {
+    padding: 5,
+    margin: 5,
+    color: 'red'
+  },
+  goButtonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  goButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 4,
+    fontSize: 25,
+    backgroundColor: 'pink',
+    color: 'white',
+    textAlign: 'center'
+  }
+});

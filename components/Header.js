@@ -29,7 +29,9 @@ class Header extends Component {
     for (let i=0; i<level; i++) {
       starsLevel.push(
         <View>
-          <Image alt='x' class='starLevel' key={i} source={require('../images/starLevel.png')} />
+          <Image alt='x' class='starLevel' key={i}
+                 style={{width: 15, height: 15}}
+                 source={require('../images/starLevel.png')} />
         </View>
       )
     }
@@ -66,7 +68,9 @@ class Header extends Component {
 
   // {this.props.user.picture &&
   //   <Link to="/profile">
-  //     <Image alt='yourpic' class='profilePic' source={{uri: this.props.user.picture}} />
+  //     <Image alt='yourpic' class='profilePic'
+  //            style={{width: 15, height: 15}}
+  //            source={{uri: `${this.props.user.picture}`}} />
   //   </Link>
   // }
 
@@ -79,10 +83,14 @@ class Header extends Component {
           <View class={`listGames${this.state.listGames}`}>{this.renderListGames()}</View>
           <Text class="NbTries">Tries left for today: {this.props.nbTryGame}</Text>
 
+
+
           <View class="Picture">
             {!this.props.user.picture &&
               <Link to="/profile">
-                <Image alt='yourpic' class='profilePic' source={require('../images/user.png')} />
+                <Image alt='yourpic' class='profilePic'
+                       style={{width: 15, height: 15}}
+                       source={require('../images/user.png')} />
               </Link>
             }
             <View class="Level">{this.renderLevel()}</View>
