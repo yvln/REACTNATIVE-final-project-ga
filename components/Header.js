@@ -12,7 +12,6 @@ class Header extends Component {
     }
 
     this.renderLevel = this.renderLevel.bind(this);
-    this.renderListGames = this.renderListGames.bind(this);
     this.toggleDisplayList = this.toggleDisplayList.bind(this);
   }
 
@@ -38,22 +37,6 @@ class Header extends Component {
     return starsLevel;
   }
 
-  renderListGames() {
-    if (this.props.games !== undefined) {
-      return this.props.games.map(e => {
-        return(
-            <Link class='listGameHeader' key={this.props.games.indexOf(e)} to='/games'>
-              <View
-                   key={e.name}
-                   onPress={() => {this.props.whichGameClicked(e)}}>
-                <Text>{e.name}</Text>
-              </View>
-            </Link>
-        )
-      })
-    }
-  }
-
   toggleDisplayList() {
     if (this.state.listGames === 'no') {
       this.setState({
@@ -65,27 +48,19 @@ class Header extends Component {
       })
     }
   }
-
   // {this.props.user.picture &&
   //   <Link to="/profile">
-  //     <Image alt='yourpic' class='profilePic'
-  //            style={{width: 15, height: 15}}
-  //            source={{uri: `${this.props.user.picture}`}} />
+  //     <Image style={{width: 15, height: 15}}
+  //            source={require('../images/user.png')} />
   //   </Link>
   // }
-
   render() {
     return (
-      <View class="Header">
-      <Text>In Header.js</Text>
-      <View class="HeaderContainer">
-          <Text class="Games" onPress={this.toggleDisplayList}>Games</Text>
-          <View class={`listGames${this.state.listGames}`}>{this.renderListGames()}</View>
+      <View style={styles.container}>
+      <View style={styles.header}>
           <Text class="NbTries">Tries left for today: {this.props.nbTryGame}</Text>
-
-
-
           <View class="Picture">
+
             {!this.props.user.picture &&
               <Link to="/profile">
                 <Image alt='yourpic' class='profilePic'
@@ -115,3 +90,19 @@ class Header extends Component {
 }
 
 export default Header;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: 420,
+    backgroundColor: 'pink',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  header: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
+})

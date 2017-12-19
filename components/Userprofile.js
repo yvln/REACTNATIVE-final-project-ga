@@ -137,9 +137,7 @@ class UserProfile extends Component {
                   <Text class="ok" onPress={this.changeOnDb}>OK</Text>
                 </View>
               }
-
-
-
+              <Link to='/home'><Text>Home</Text></Link>
 
         </View>
 
@@ -148,7 +146,6 @@ class UserProfile extends Component {
   }
 }
 
-// <Link to='/home'>Home</Link>
 
 
 export default UserProfile;

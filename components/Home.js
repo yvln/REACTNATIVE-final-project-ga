@@ -86,7 +86,7 @@ class Home extends Component {
 
   render() {
     return (
-      <View class="Home">
+      <View style={styles.container}>
         <Text class="Greetings">Hello, {this.props.user.fname}!</Text>
         <View class="HomeGames">
           {this.renderGamesBox()}
@@ -98,3 +98,11 @@ class Home extends Component {
 }
 
 export default Home;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})

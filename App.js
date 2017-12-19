@@ -253,7 +253,6 @@ export default class App extends Component {
     return (
       <NativeRouter>
         <View style={styles.container}>
-        <Text>In App.js</Text>
           { this.state.user &&
               <Header
                 user={this.state.user}

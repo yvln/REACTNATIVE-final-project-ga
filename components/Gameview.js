@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-native';
 import { StyleSheet, Text, View } from 'react-native';
 
 import axios from 'axios';
@@ -252,7 +252,7 @@ class Gameview extends Component {
 
   render() {
     return (
-      <View class={`Gameview ${((this.state.rungame === 'before') || (this.state.rungame === 'after')) ? `Gameview${Math.ceil(Math.random()*6)}yes` : 'Gameviewno'}`}>
+      <View style={styles.container} class={`Gameview ${((this.state.rungame === 'before') || (this.state.rungame === 'after')) ? `Gameview${Math.ceil(Math.random()*6)}yes` : 'Gameviewno'}`}>
           <View class="GameContainer">
               { ((this.props.nbTryGame > 0) && (this.state.rungame === 'before')) &&
                 <View class="beforePlaying">
@@ -325,3 +325,12 @@ class Gameview extends Component {
 }
 
 export default Gameview;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 4,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+});

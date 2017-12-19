@@ -59,7 +59,7 @@ class Signup extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Image style={styles.backgroundImage} source={require('../images/RV-orvieto.jpeg')}>
+      <Image style={styles.backgroundImage} source={require('../images/RV-orvietolight.jpeg')}>
 
           {this.state.signupSuccess &&
             <Redirect to='/home' />
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 25,
     backgroundColor: 'transparent',
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold'
   },
   authInput: {
@@ -146,15 +146,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   goButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 4,
     fontSize: 25,
-    backgroundColor: 'pink',
-    color: 'white',
+    color: 'pink',
     textAlign: 'center'
-  },
-  link: {
-
   }
 });

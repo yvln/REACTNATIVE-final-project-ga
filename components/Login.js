@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+
   },
   backgroundImage: {
     flex: 1,
@@ -146,7 +147,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 450,
-    height: 500
+    height: 500,
+    backgroundColor: 'rgba(255,255,255,.8)'
   },
   login: {
     alignItems: 'center',
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 25,
     backgroundColor: 'transparent',
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold'
   },
   authInput: {
@@ -182,12 +184,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   goButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 4,
     fontSize: 25,
-    backgroundColor: 'pink',
-    color: 'white',
+    color: 'pink',
     textAlign: 'center'
   }
 });
